@@ -3,7 +3,7 @@ Run this script to sttart the crack installtion
 
 #!/bin/bash
 
-SCRIPT_URL="https://raw.githubusercontent.com/your-username/your-repository/main/install_macsploit.sh"
+SCRIPT_URL="https://raw.githubusercontent.com/Kiwxpro/Macsploit-Crack/main/install_macsploit.sh"
 
 clear
 
