@@ -6,4 +6,4 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/Kiwxpro/Macsploit-Crack/
 
 )
 
-Also there may be some errors but ingore you should see macsploit in application folder or launchpad you will need to reinstall every 7 days to keep the crack working might get patched soon dont know.
+Also there may be some errors but ingore you should see macsploit in application folder or launchpad you will need to reinstall every 7 days to keep the crack working might get patched soon dont know.also manually install roblox
