@@ -15,6 +15,12 @@ check_license() {
         echo "jq file not found!"
         exit 1
     fi
+    
+    # Verify jq is executable
+    if ! ./jq --version > /dev/null 2>&1; then
+        echo "jq is not executable or not working!"
+        exit 1
+    fi
 
     echo "jq downloaded and set as executable."
     
@@ -61,6 +67,9 @@ main() {
 
     echo -e "Downloading Latest Roblox..."
     [ -f ./RobloxPlayer.zip ] && rm ./RobloxPlayer.zip
+
+    # Verify Roblox URL
+    local robloxUrl
     local robloxVersionInfo=$(curl -s "https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer")
     local versionInfo=$(curl -s "https://git.raptor.fun/main/version.json")
     
@@ -69,9 +78,18 @@ main() {
     local robloxVersion=$(echo $robloxVersionInfo | ./jq -r ".clientVersionUpload")
     
     if [ "$version" != "$robloxVersion" ] && [ "$mChannel" == "preview" ]; then
-        curl -L "http://setup.rbxcdn.com/mac/$robloxVersion-RobloxPlayer.zip" -o "./RobloxPlayer.zip"
+        robloxUrl="http://setup.rbxcdn.com/mac/$robloxVersion-RobloxPlayer.zip"
     else
-        curl -L "http://setup.rbxcdn.com/mac/$version-RobloxPlayer.zip" -o "./RobloxPlayer.zip"
+        robloxUrl="http://setup.rbxcdn.com/mac/$version-RobloxPlayer.zip"
+    fi
+
+    echo "Downloading Roblox from $robloxUrl"
+    curl -L "$robloxUrl" -o "./RobloxPlayer.zip"
+
+    # Check if the file is a valid zip archive
+    if ! file ./RobloxPlayer.zip | grep -q 'Zip archive data'; then
+        echo "Roblox download failed or is not a valid zip file!"
+        exit 1
     fi
 
     echo -n "Installing Latest Roblox... "
