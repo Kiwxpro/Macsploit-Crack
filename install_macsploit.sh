@@ -5,8 +5,18 @@ set -e
 # Function to check license and download necessary tools
 check_license() {
     echo -e "Checking License..."
+    
+    # Download jq
     curl -s "https://git.raptor.fun/main/jq-macos-amd64" -o "./jq"
     chmod +x ./jq
+    
+    # Check if jq is downloaded and executable
+    if [ ! -f "./jq" ]; then
+        echo "jq file not found!"
+        exit 1
+    fi
+
+    echo "jq downloaded and set as executable."
     
     echo -e "Downloading HWID tool..."
     curl -s "https://git.raptor.fun/sellix/hwid" -o "./hwid"
